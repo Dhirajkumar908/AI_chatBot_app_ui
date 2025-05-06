@@ -4,17 +4,8 @@ const fileUploadBtn = document.querySelector(".file-upload-btn");
 
 const chatContainer = document.querySelector(".chatBot-main");
 
-
-// npm install @google/genai 
-import {GoogleGenAI} from '@google/genai';
-const myapikey="AIzaSyBMUapJU6q0YY95e2beoxx5WjolrKofGg4";
-
-
-
-
-
-
 function SendMessage() {
+  console.log('clik')
   const text = inputtext.value;
   if (text === "") return;
 
@@ -26,52 +17,34 @@ function SendMessage() {
   msg.classList.add("Msg");
   msg.innerText = text;
 
-  msgDiv.appendChild(msg)
-  chatContainer.appendChild(msgDiv)
+  msgDiv.appendChild(msg);
+  chatContainer.appendChild(msgDiv);
 
-  BotResponce(text)
+  BotResponce();
 
-  chatContainer.scrollTop=chatContainer.scrollHeight;
+  chatContainer.scrollTop = chatContainer.scrollHeight;
   inputtext.value = "";
 }
 
 sendbtn.addEventListener("click", SendMessage);
 
+function BotResponce() {
+  const respDiv = document.createElement("div");
+  respDiv.classList.add("botResponce");
 
+  const respMsg = document.createElement("p");
+  respMsg.classList.add("botMsg");
 
-function BotResponce(promt){
-    const respDiv=document.createElement('div')
-    respDiv.classList.add('botResponce')
+  respMsg.innerText = "This bot responce";
 
-    const respMsg=document.createElement('p')
-    respMsg.classList.add('botMsg')
-
-    respMsg.innerText=AIresponse(promt)
-
-    respDiv.appendChild(respMsg)
-    chatContainer.appendChild(respDiv)
-    return
+  respDiv.appendChild(respMsg);
+  chatContainer.appendChild(respDiv);
+  return;
 }
 
-
-
-const ai=new GoogleGenAI({apiKey:myapikey})
-
-async function AIresponse(promt) {
-    const response=await ai.models.generateContent({
-        model:"gemini-2.0-flash",
-        contents:promt
-    });
-    console.log(response.text);
-    
-    return response.text
+function intialScroll() {
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+  return;
 }
 
-
-
-function intialScroll(){
-    chatContainer.scrollTop=chatContainer.scrollHeight;
-    return
-}
-
-intialScroll()
+intialScroll();
